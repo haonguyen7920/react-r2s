@@ -1,24 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import Table from "react-bootstrap/Table";
+import data from "./data/users.json";
+import { UserItem } from "./components/UserItem";
 
+interface User {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  gender: string;
+  birthday: string;
+  salary: number;
+  phone: string;
+}
 function App() {
+  const [users, setUsers] = useState<User[]>(data);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>A simple web app</h1>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Gender</th>
+            <th>Birthday</th>
+            <th>Salary</th>
+            <th>Phone</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((user) => (
+            <UserItem key={user.id} {...user} />
+          ))}
+        </tbody>
+      </Table>
     </div>
   );
 }
