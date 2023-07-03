@@ -8,8 +8,15 @@ interface Todo {
   title: string;
   isCompleted: boolean;
 }
+let data: Todo[] = [];
+let dataJson = localStorage.getItem("TodoList");
+if (dataJson) {
+  data = JSON.parse(dataJson);
+}
 function App() {
-  const [todos, setTodos] = useState<Todo[]>([]);
+  const [todos, setTodos] = useState<Todo[]>(data);
+  let dataJson = JSON.stringify(todos);
+  localStorage.setItem("TodoList", dataJson);
   const handleAddTodo = (title: string) => {
     const newTodoItem = {
       id: todos.length + 1,
