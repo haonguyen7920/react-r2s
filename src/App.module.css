@@ -1,0 +1,11 @@
+.features {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.orderBy,
+.filter {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
