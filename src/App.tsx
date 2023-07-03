@@ -22,40 +22,36 @@ function App() {
     switch (event.target.value) {
       case "id":
         {
-          let newArray = [...users];
-          newArray = newArray.sort((a, b) => a.id - b.id);
+          const newArray = [...users];
+          newArray.sort((a, b) => a.id - b.id);
           setUsers(newArray);
         }
         break;
       case "firstName":
         {
-          let newArray = [...users];
-          newArray = newArray.sort((a, b) =>
-            a.firstName.localeCompare(b.firstName)
-          );
+          const newArray = [...users];
+          newArray.sort((a, b) => a.firstName.localeCompare(b.firstName));
           setUsers(newArray);
         }
         break;
       case "lastName":
         {
-          let newArray = [...users];
-          newArray = newArray.sort((a, b) =>
-            a.lastName.localeCompare(b.lastName)
-          );
+          const newArray = [...users];
+          newArray.sort((a, b) => a.lastName.localeCompare(b.lastName));
           setUsers(newArray);
         }
         break;
       case "email":
         {
-          let newArray = [...users];
-          newArray = newArray.sort((a, b) => a.email.localeCompare(b.email));
+          const newArray = [...users];
+          newArray.sort((a, b) => a.email.localeCompare(b.email));
           setUsers(newArray);
         }
         break;
       case "birthday":
         {
-          let newArray = [...users];
-          newArray = newArray.sort(
+          const newArray = [...users];
+          newArray.sort(
             (a, b) => dayjs(a.birthday).valueOf() - dayjs(b.birthday).valueOf()
           );
           setUsers(newArray);
@@ -63,8 +59,8 @@ function App() {
         break;
       case "salary":
         {
-          let newArray = [...users];
-          newArray = newArray.sort((a, b) => a.salary - b.salary);
+          const newArray = [...users];
+          newArray.sort((a, b) => a.salary - b.salary);
           setUsers(newArray);
         }
         break;
