@@ -2,4 +2,15 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-bottom: 5px;
+}
+.container .form-check {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+}
+
+.container .form-control {
+  display: inline;
+  width: auto;
 }

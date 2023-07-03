@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "./App.css";
 import { AddTodo } from "./components/AddTodo";
 import { TodoItem } from "./components/TodoItem";
+import styles from "./App.module.css";
 
 interface Todo {
   id: number;
@@ -27,8 +27,16 @@ function App() {
     newArray[index] = { ...newArray[index], title: newTitle };
     setTodos(newArray);
   };
+  const handleCheckCompleted = (id: number) => {
+    const newArray = [...todos];
+    const index = newArray.findIndex((todo) => todo.id === id);
+    const { isCompleted } = newArray[index];
+    newArray[index] = { ...newArray[index], isCompleted: !isCompleted };
+    setTodos(newArray);
+  };
   return (
-    <div>
+    <div className={styles.container}>
+      <h3>Todo App</h3>
       <section>
         <AddTodo handleAdd={handleAddTodo} />
       </section>
@@ -39,6 +47,7 @@ function App() {
             {...todo}
             handleDelete={handleDeleteTodo}
             handleSave={handleSaveTodo}
+            handleCheck={handleCheckCompleted}
           />
         ))}
       </section>
