@@ -21,48 +21,32 @@ function App() {
   const handleChangeOrderBy = (event: React.ChangeEvent<HTMLSelectElement>) => {
     switch (event.target.value) {
       case "id":
-        {
-          const newArray = [...users];
-          newArray.sort((a, b) => a.id - b.id);
-          setUsers(newArray);
-        }
+        setUsers((prev) => [...prev.sort((a, b) => a.id - b.id)]);
         break;
       case "firstName":
-        {
-          const newArray = [...users];
-          newArray.sort((a, b) => a.firstName.localeCompare(b.firstName));
-          setUsers(newArray);
-        }
+        setUsers((prev) => [
+          ...prev.sort((a, b) => a.firstName.localeCompare(b.firstName)),
+        ]);
         break;
       case "lastName":
-        {
-          const newArray = [...users];
-          newArray.sort((a, b) => a.lastName.localeCompare(b.lastName));
-          setUsers(newArray);
-        }
+        setUsers((prev) => [
+          ...prev.sort((a, b) => a.lastName.localeCompare(b.lastName)),
+        ]);
         break;
       case "email":
-        {
-          const newArray = [...users];
-          newArray.sort((a, b) => a.email.localeCompare(b.email));
-          setUsers(newArray);
-        }
+        setUsers((prev) => [
+          ...prev.sort((a, b) => a.email.localeCompare(b.email)),
+        ]);
         break;
       case "birthday":
-        {
-          const newArray = [...users];
-          newArray.sort(
+        setUsers((prev) => [
+          ...prev.sort(
             (a, b) => dayjs(a.birthday).valueOf() - dayjs(b.birthday).valueOf()
-          );
-          setUsers(newArray);
-        }
+          ),
+        ]);
         break;
       case "salary":
-        {
-          const newArray = [...users];
-          newArray.sort((a, b) => a.salary - b.salary);
-          setUsers(newArray);
-        }
+        setUsers((prev) => [...prev.sort((a, b) => a.salary - b.salary)]);
         break;
       default:
         setUsers(data);
