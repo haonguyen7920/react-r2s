@@ -17,62 +17,59 @@ interface User {
 }
 function App() {
   const [users, setUsers] = useState<User[]>(data);
-  const [inputFilter, setInputFilter] = useState<string>("");
+  const [filterText, setFilterText] = useState<string>("");
+  const [sortSelected, setSortSelected] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<number>(2);
+  const pageSize = 10;
+
+  // filteredUsers
+  const keys: string[] = [
+    "firstName",
+    "lastName",
+    "email",
+    "gender",
+    "birthday",
+    "phone",
+  ];
+  const filteredUsers: User[] = users.filter((user: any) =>
+    keys.some((key: string) => {
+      let str = "";
+      key === "birthday"
+        ? (str = dayjs(user[key]).format("DD/MM/YYYY"))
+        : (str = user[key]);
+      return str.toLowerCase().includes(filterText.toLowerCase());
+    })
+  );
+  const sortedUsers: User[] = [...filteredUsers];
+  switch (sortSelected) {
+    case "id":
+      sortedUsers.sort((a, b) => a.id - b.id);
+      break;
+    case "firstName":
+      sortedUsers.sort((a, b) => a.firstName.localeCompare(b.firstName));
+      break;
+    case "lastName":
+      sortedUsers.sort((a, b) => a.lastName.localeCompare(b.lastName));
+      break;
+    case "email":
+      sortedUsers.sort((a, b) => a.email.localeCompare(b.email));
+      break;
+    case "birthday":
+      sortedUsers.sort(
+        (a, b) => dayjs(a.birthday).valueOf() - dayjs(b.birthday).valueOf()
+      );
+      break;
+    case "salary":
+      sortedUsers.sort((a, b) => a.salary - b.salary);
+      break;
+    default:
+      sortedUsers.sort((a, b) => a.id - b.id);
+  }
   const handleChangeOrderBy = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    switch (event.target.value) {
-      case "id":
-        setUsers((prev) => [...prev.sort((a, b) => a.id - b.id)]);
-        break;
-      case "firstName":
-        setUsers((prev) => [
-          ...prev.sort((a, b) => a.firstName.localeCompare(b.firstName)),
-        ]);
-        break;
-      case "lastName":
-        setUsers((prev) => [
-          ...prev.sort((a, b) => a.lastName.localeCompare(b.lastName)),
-        ]);
-        break;
-      case "email":
-        setUsers((prev) => [
-          ...prev.sort((a, b) => a.email.localeCompare(b.email)),
-        ]);
-        break;
-      case "birthday":
-        setUsers((prev) => [
-          ...prev.sort(
-            (a, b) => dayjs(a.birthday).valueOf() - dayjs(b.birthday).valueOf()
-          ),
-        ]);
-        break;
-      case "salary":
-        setUsers((prev) => [...prev.sort((a, b) => a.salary - b.salary)]);
-        break;
-      default:
-        setUsers(data);
-    }
+    setSortSelected(event.target.value);
   };
-  const handleInputFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputFilter(event.target.value);
-  };
-  const renderList = () => {
-    const keys: string[] = [
-      "firstName",
-      "lastName",
-      "email",
-      "gender",
-      "birthday",
-      "phone",
-    ];
-    return users.filter((user: any) =>
-      keys.some((key: string) => {
-        let str = "";
-        key === "birthday"
-          ? (str = dayjs(user[key]).format("DD/MM/YYYY"))
-          : (str = user[key]);
-        return str.toLowerCase().includes(inputFilter.toLowerCase());
-      })
-    );
+  const handleChangeFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFilterText(event.target.value);
   };
   return (
     <div className="App">
@@ -92,7 +89,7 @@ function App() {
         </div>
         <div className={styles.filter}>
           <h2>Filter</h2>
-          <input type="text" onChange={handleInputFilter} />
+          <input type="text" onChange={handleChangeFilter} />
         </div>
       </div>
       <Table striped bordered hover>
@@ -109,7 +106,7 @@ function App() {
           </tr>
         </thead>
         <tbody>
-          {renderList().map((item) => (
+          {sortedUsers.map((item) => (
             <UserItem key={item.id} {...item} />
           ))}
         </tbody>
