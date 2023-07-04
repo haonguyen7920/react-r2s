@@ -17,7 +17,7 @@ interface User {
   phone: string;
 }
 function App() {
-  const [users, setUsers] = useState<User[]>(usersData);
+  const [users] = useState<User[]>(usersData);
   const [filterText, setFilterText] = useState<string>("");
   const [sortSelected, setSortSelected] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
