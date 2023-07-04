@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import { UserItem } from "./components/UserItem";
 import styles from "./App.module.css";
 import Table from "react-bootstrap/Table";
 import dayjs from "dayjs";
-import data from "./data/users.json";
-import { UserItem } from "./components/UserItem";
+import usersData from "./data/users.json";
+import Pagination from "react-bootstrap/Pagination";
 
 interface User {
   id: number;
@@ -16,13 +17,13 @@ interface User {
   phone: string;
 }
 function App() {
-  const [users, setUsers] = useState<User[]>(data);
+  const [users, setUsers] = useState<User[]>(usersData);
   const [filterText, setFilterText] = useState<string>("");
   const [sortSelected, setSortSelected] = useState<string>("");
-  const [currentPage, setCurrentPage] = useState<number>(2);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const pageSize = 10;
 
-  // filteredUsers
+  // filteredUsers List
   const keys: string[] = [
     "firstName",
     "lastName",
@@ -40,6 +41,8 @@ function App() {
       return str.toLowerCase().includes(filterText.toLowerCase());
     })
   );
+
+  // sortedUsers List
   const sortedUsers: User[] = [...filteredUsers];
   switch (sortSelected) {
     case "id":
@@ -65,14 +68,40 @@ function App() {
     default:
       sortedUsers.sort((a, b) => a.id - b.id);
   }
+
+  // paginatedUsers List
+  const paginatedUsers: User[] = sortedUsers.slice(
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize
+  );
+
+  // function
   const handleChangeOrderBy = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSortSelected(event.target.value);
   };
   const handleChangeFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFilterText(event.target.value);
   };
+  const handleChangePage = (numberPage: number) => {
+    setCurrentPage(numberPage);
+  };
+  let items = [];
+  let totalPage: number = Math.ceil(sortedUsers.length / pageSize);
+  console.log(totalPage);
+
+  for (let numberPage = 1; numberPage <= totalPage; numberPage++) {
+    items.push(
+      <Pagination.Item
+        key={numberPage}
+        active={numberPage === currentPage}
+        onClick={() => handleChangePage(numberPage)}
+      >
+        {numberPage}
+      </Pagination.Item>
+    );
+  }
   return (
-    <div className="App">
+    <div className={styles.App}>
       <h1>A simple web app</h1>
       <div className={styles.features}>
         <div className={styles.orderBy}>
@@ -106,11 +135,12 @@ function App() {
           </tr>
         </thead>
         <tbody>
-          {sortedUsers.map((item) => (
+          {paginatedUsers.map((item) => (
             <UserItem key={item.id} {...item} />
           ))}
         </tbody>
       </Table>
+      <Pagination className={styles.pagination}>{items}</Pagination>
     </div>
   );
 }
