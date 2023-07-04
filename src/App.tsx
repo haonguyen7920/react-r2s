@@ -97,7 +97,7 @@ function App() {
   }
   return (
     <div className={styles.App}>
-      <h1>A simple web app</h1>
+      <h1>A simple web app Nguyễn Vũ Hào</h1>
       <div className={styles.features}>
         <div className={styles.orderBy}>
           <h2>OrderBy</h2>
