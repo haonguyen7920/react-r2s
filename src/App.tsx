@@ -43,30 +43,26 @@ function App() {
   );
 
   // sortedUsers List
-  const sortedUsers: User[] = [...filteredUsers];
+  let sortedUsers: User[] = [...filteredUsers];
   switch (sortSelected) {
     case "id":
-      sortedUsers.sort((a, b) => a.id - b.id);
+    case "salary":
+      sortedUsers.sort((a, b) => a[sortSelected] - b[sortSelected]);
       break;
     case "firstName":
-      sortedUsers.sort((a, b) => a.firstName.localeCompare(b.firstName));
-      break;
     case "lastName":
-      sortedUsers.sort((a, b) => a.lastName.localeCompare(b.lastName));
-      break;
     case "email":
-      sortedUsers.sort((a, b) => a.email.localeCompare(b.email));
+      sortedUsers.sort((a, b) =>
+        a[sortSelected].localeCompare(b[sortSelected])
+      );
       break;
     case "birthday":
       sortedUsers.sort(
         (a, b) => dayjs(a.birthday).valueOf() - dayjs(b.birthday).valueOf()
       );
       break;
-    case "salary":
-      sortedUsers.sort((a, b) => a.salary - b.salary);
-      break;
     default:
-      sortedUsers.sort((a, b) => a.id - b.id);
+      sortedUsers = [...filteredUsers];
   }
 
   // paginatedUsers List
@@ -88,8 +84,6 @@ function App() {
   };
   let items = [];
   let totalPage: number = Math.ceil(sortedUsers.length / pageSize);
-  console.log(totalPage);
-
   for (let numberPage = 1; numberPage <= totalPage; numberPage++) {
     items.push(
       <Pagination.Item
