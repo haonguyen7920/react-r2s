@@ -75,12 +75,13 @@ function App() {
     currentPage * pageSize
   );
 
-  // function
+  // functions
   const handleChangeOrderBy = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSortSelected(event.target.value);
   };
   const handleChangeFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFilterText(event.target.value);
+    setCurrentPage(1);
   };
   const handleChangePage = (numberPage: number) => {
     setCurrentPage(numberPage);
