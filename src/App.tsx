@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AddTodo } from "./components/AddTodo";
+import AddTodo from "./components/AddTodo";
 import { TodoItem } from "./components/TodoItem";
 import styles from "./App.module.css";
 
@@ -15,8 +15,10 @@ function App() {
   let dataJson = JSON.stringify(todos);
   localStorage.setItem("TodoList", dataJson);
   const handleAddTodo = (title: string) => {
+    let newID: number;
+    todos.length === 0 ? (newID = 1) : (newID = todos[todos.length - 1].id + 1);
     const newTodoItem = {
-      id: todos.length + 1,
+      id: newID,
       title: title,
       isCompleted: false,
     };
@@ -38,20 +40,22 @@ function App() {
     newArray[index] = { ...newArray[index], isCompleted: !isCompleted };
     setTodos(newArray);
   };
+  console.log("render lai");
+
   return (
     <div className={styles.container}>
       <h3>Todo App</h3>
       <section>
-        <AddTodo handleAdd={handleAddTodo} />
+        <AddTodo onAdd={handleAddTodo} />
       </section>
       <section>
         {todos.map((todo) => (
           <TodoItem
             key={todo.id}
             {...todo}
-            handleDelete={handleDeleteTodo}
-            handleSave={handleSaveTodo}
-            handleCheck={handleCheckCompleted}
+            onDelete={handleDeleteTodo}
+            onSave={handleSaveTodo}
+            onCheck={handleCheckCompleted}
           />
         ))}
       </section>

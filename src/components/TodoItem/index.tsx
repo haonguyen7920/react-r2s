@@ -7,17 +7,17 @@ interface Props {
   id: number;
   title: string;
   isCompleted: boolean;
-  handleDelete: (id: number) => void;
-  handleSave: (id: number, newTitle: string) => void;
-  handleCheck: (id: number) => void;
+  onDelete: (id: number) => void;
+  onSave: (id: number, newTitle: string) => void;
+  onCheck: (id: number) => void;
 }
 export const TodoItem = ({
   id,
   title,
   isCompleted,
-  handleDelete,
-  handleSave,
-  handleCheck,
+  onDelete,
+  onSave,
+  onCheck,
 }: Props) => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [todoContent, setTodoContent] = useState<string>(title);
@@ -25,11 +25,11 @@ export const TodoItem = ({
     if (isEditing) {
       setIsEditing(false);
       setTodoContent(title);
-    } else handleDelete(id);
+    } else onDelete(id);
   };
   const handleClickEditOrSave = () => {
     if (isEditing) {
-      handleSave(id, todoContent);
+      onSave(id, todoContent);
     }
     setIsEditing(!isEditing);
   };
@@ -37,7 +37,7 @@ export const TodoItem = ({
     setTodoContent(event.target.value);
   };
   const handleClickCheckbox = () => {
-    handleCheck(id);
+    onCheck(id);
   };
   return (
     <div className={styles.container}>
