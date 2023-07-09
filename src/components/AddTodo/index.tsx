@@ -11,27 +11,25 @@ const AddTodo = ({ onAdd }: Props) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTodoContent(event.target.value);
   };
-  const handleAdd = () => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     onAdd(todoContent);
     setTodoContent("");
     inputRef.current?.focus();
   };
   return (
-    <div className={styles.container}>
+    <form onSubmit={handleSubmit} className={styles.container}>
       <input
-        ref={inputRef}
         type="text"
+        placeholder="Enter todo..."
+        ref={inputRef}
         value={todoContent}
         onChange={handleChange}
       />
-      <Button
-        variant="success"
-        disabled={!Boolean(todoContent)}
-        onClick={handleAdd}
-      >
+      <Button variant="success" disabled={!Boolean(todoContent)} type="submit">
         Add item
       </Button>
-    </div>
+    </form>
   );
 };
 
