@@ -13,6 +13,14 @@
   align-items: center;
   gap: 0.5rem;
 }
-.pagination {
+.footer {
+  display: flex;
+}
+.footer ul {
   margin: auto;
+}
+.footer p {
+  position: fixed;
+  right: 100px;
+  color: blue;
 }

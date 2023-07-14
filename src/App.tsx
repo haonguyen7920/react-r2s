@@ -135,7 +135,10 @@ function App() {
           ))}
         </tbody>
       </Table>
-      <Pagination className={styles.pagination}>{items}</Pagination>
+      <div className={styles.footer}>
+        <Pagination>{items}</Pagination>
+        <p>Total: {sortedUsers.length} users</p>
+      </div>
     </div>
   );
 }
