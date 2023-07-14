@@ -1,0 +1,26 @@
+.container {
+  background-color: white;
+  width: 400px;
+  margin: 0 auto;
+  padding: 0px 50px;
+  height: 100%;
+}
+.container > h3 {
+  margin-bottom: 0;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+.form small {
+  color: red;
+}
+.form label {
+  margin-top: 10px;
+}
+.form .btnBottom {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0;
+}
