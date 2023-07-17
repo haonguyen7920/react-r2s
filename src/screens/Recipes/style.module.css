@@ -1,0 +1,9 @@
+.container{
+    width: 1200px;
+    margin: 10px auto;
+    display: flex;
+}
+.leftSide{
+    width: 40%;
+    border-bottom: 1px solid #e5e5e5;
+}

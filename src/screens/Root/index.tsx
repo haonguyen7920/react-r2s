@@ -1,15 +1,17 @@
 import React from 'react'
-import { Link, NavLink, Outlet } from 'react-router-dom'
+import { Link, NavLink, Navigate, Outlet } from 'react-router-dom'
 
 const Root = () => {
+  
   return (
     <div className='root'>
+    <Navigate to="recipes"/>
       <nav>
         <Link to="/">Recipe Book</Link>
         <NavLink to="recipes">Recipes</NavLink>
-        <NavLink to="shoppingList">Shopping List</NavLink>
+        <NavLink to="shopping-list">Shopping List</NavLink>
       </nav>
-      <div id="content">
+      <div id="detail">
         <Outlet />
       </div>
     </div>
