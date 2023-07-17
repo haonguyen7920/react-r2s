@@ -1,10 +1,9 @@
 import React from 'react'
 import { Link, NavLink, Outlet } from 'react-router-dom'
-import styles from "./style.module.css"
 
 const Root = () => {
   return (
-    <div className={styles.container}>
+    <div className='root'>
       <nav>
         <Link to="/">Recipe Book</Link>
         <NavLink to="recipes">Recipes</NavLink>
