@@ -3,7 +3,7 @@ import { Form } from "react-router-dom";
 
 const MyForm = () => {
   return (
-    <Form method="post" action="/recipes/form ">
+    <Form method="post" action="/recipes">
       <button className="btn btn-success" type="submit">
         Save
       </button>
@@ -12,7 +12,7 @@ const MyForm = () => {
     </Form>
   );
 };
-export const contactAction = async ({ request }: any) => {
+export const recipeAction = async ({ request }: any) => {
   const formData = await request.formData();
   const email = formData.get("email");
   const message = formData.get("message");

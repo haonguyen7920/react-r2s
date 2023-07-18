@@ -8,7 +8,7 @@ import Root from "./screens/Root";
 import ErrorPage from "./screens/ErrorPage";
 import Recipes from "./screens/Recipes";
 import ShoppingList from "./screens/ShoppingList";
-import Form, { contactAction } from "./components/Form";
+import Form, { recipeAction } from "./components/Form";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -30,7 +30,7 @@ const router = createBrowserRouter([
           {
             path: "form",
             element: <Form />,
-            action: contactAction,
+            action: recipeAction,
           },
         ],
       },
