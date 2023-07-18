@@ -40,8 +40,6 @@ function App() {
     newArray[index] = { ...newArray[index], isCompleted: !isCompleted };
     setTodos(newArray);
   };
-  console.log("render lai");
-
   return (
     <div className={styles.container}>
       <h3>Todo App</h3>
