@@ -14,14 +14,9 @@ const MyForm = () => {
 };
 export const contactAction = async ({ request }: any) => {
   const formData = await request.formData();
-  const data = Object.fromEntries(formData);
-
-  // const submission = {
-  //   email: formData.get("email"),
-  //   message: formData.get("message"),
-  // };
-  // console.log(submission);
-  return { data };
+  const email = formData.get("email");
+  const message = formData.get("message");
+  return { email, message };
 };
 
 export default MyForm;
