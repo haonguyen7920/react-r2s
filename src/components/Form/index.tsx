@@ -1,22 +1,29 @@
 import React from "react";
-import { Form } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const MyForm = () => {
+  // const navigate = useNavigate();
+  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   navigate("/");
+  // };
   return (
-    <Form method="post" action="/recipes">
+    <form method="post" action="/recipes/form">
       <button className="btn btn-success" type="submit">
         Save
       </button>
       <input type="email" name="email" required />
       <textarea name="message" required />
-    </Form>
+    </form>
   );
 };
-export const recipeAction = async ({ request }: any) => {
-  const formData = await request.formData();
-  const email = formData.get("email");
-  const message = formData.get("message");
-  return { email, message };
-};
+// export const recipeAction = async ({ request }: any) => {
+//   const formData = await request.formData();
+//   const submission = {
+//     email: formData.get("email"),
+//     message: formData.get("message"),
+//   };
+//   return { submission };
+// };
 
 export default MyForm;

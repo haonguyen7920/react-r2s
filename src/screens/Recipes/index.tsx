@@ -1,23 +1,21 @@
 import React, { useState } from "react";
-import { Link, Outlet, useLoaderData } from "react-router-dom";
+import { Link, Outlet, useFormAction } from "react-router-dom";
 import styles from "./style.module.css";
 
-const dataRecipes = [
-  {
-    id: 1,
-    title: "banh1",
-    isCompleted: false,
-  },
-];
+// const dataRecipes = [
+//   {
+//     name: "hamburger",
+//     description: "banh1",
+//   },
+// ];
 interface Recipe {
-  id: number;
-  title: string;
-  isCompleted: boolean;
+  name: string;
+  description: string;
 }
 function Recipes() {
-  const [recipes] = useState<Recipe[]>(dataRecipes);
-  const prop = useLoaderData();
-  console.log(prop);
+  const [recipes] = useState<Recipe[]>([]);
+  const kk = useFormAction();
+  console.log(kk);
 
   return (
     <div className={styles.container}>
@@ -26,8 +24,8 @@ function Recipes() {
           New Recipe
         </Link>
         <section>
-          {recipes.map((recipe) => (
-            <p key={recipe.id}>{recipe.title}</p>
+          {recipes.map((recipe, index) => (
+            <p key={index}>{recipe.name}</p>
           ))}
         </section>
       </div>
