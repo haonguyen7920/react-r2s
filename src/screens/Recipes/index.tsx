@@ -1,21 +1,26 @@
-import React, { useState } from "react";
-import { Link, Outlet, useFormAction } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import styles from "./style.module.css";
-
-// const dataRecipes = [
-//   {
-//     name: "hamburger",
-//     description: "banh1",
-//   },
-// ];
 interface Recipe {
   name: string;
   description: string;
 }
 function Recipes() {
-  const [recipes] = useState<Recipe[]>([]);
-  const kk = useFormAction();
-  console.log(kk);
+  const [recipes, setRecipes] = useState<Recipe[]>([
+    { name: "banhHamburgerHao", description: "sdfds" },
+  ]);
+
+  const { state } = useLocation();
+  useEffect(() => {
+    if (state) {
+      const { name, description } = state;
+      const newRecipes = { name, description };
+      setRecipes([...recipes, newRecipes]);
+      // const newA = [...recipes];
+      // newA.push(newRecipes);
+      // setRecipes(newA);
+    }
+  }, []);
 
   return (
     <div className={styles.container}>
