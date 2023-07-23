@@ -6,22 +6,10 @@ interface Recipe {
   description: string;
 }
 function Recipes() {
-  const [recipes, setRecipes] = useState<Recipe[]>([
+  const [recipes] = useState<Recipe[]>([
     { name: "banhHamburgerHao", description: "sdfds" },
   ]);
-
-  const { state } = useLocation();
-  useEffect(() => {
-    if (state) {
-      const { name, description } = state;
-      const newRecipes = { name, description };
-      setRecipes([...recipes, newRecipes]);
-      // const newA = [...recipes];
-      // newA.push(newRecipes);
-      // setRecipes(newA);
-    }
-  }, []);
-
+  useEffect(() => {}, []);
   return (
     <div className={styles.container}>
       <div className={styles.leftSide}>
