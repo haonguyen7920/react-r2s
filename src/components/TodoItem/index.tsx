@@ -2,34 +2,27 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import styles from "./style.module.css";
+import { useDispatch } from "react-redux";
+import { checkTodo, deleteTodo, saveTodo } from "../../store/actions";
 
 interface Props {
   id: number;
   title: string;
   isCompleted: boolean;
-  onDelete: (id: number) => void;
-  onSave: (id: number, newTitle: string) => void;
-  onCheck: (id: number) => void;
 }
-export const TodoItem = ({
-  id,
-  title,
-  isCompleted,
-  onDelete,
-  onSave,
-  onCheck,
-}: Props) => {
+export const TodoItem = ({ id, title, isCompleted }: Props) => {
+  const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [todoContent, setTodoContent] = useState<string>(title);
   const handleClickDeleteOrCancel = () => {
     if (isEditing) {
       setIsEditing(false);
       setTodoContent(title);
-    } else onDelete(id);
+    } else dispatch(deleteTodo(id));
   };
   const handleClickEditOrSave = () => {
     if (isEditing) {
-      onSave(id, todoContent);
+      dispatch(saveTodo(id, todoContent));
     }
     setIsEditing(!isEditing);
   };
@@ -37,7 +30,7 @@ export const TodoItem = ({
     setTodoContent(event.target.value);
   };
   const handleClickCheckbox = () => {
-    onCheck(id);
+    dispatch(checkTodo(id));
   };
   return (
     <div className={styles.container}>

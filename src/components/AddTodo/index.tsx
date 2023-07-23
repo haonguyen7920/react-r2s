@@ -1,11 +1,11 @@
 import React, { useState, useRef } from "react";
 import Button from "react-bootstrap/Button";
 import styles from "./style.module.css";
+import { useDispatch } from "react-redux";
+import { addTodo } from "../../store/actions";
 
-interface Props {
-  onAdd: (title: string) => void;
-}
-const AddTodo = ({ onAdd }: Props) => {
+const AddTodo = () => {
+  const dispatch = useDispatch();
   const [todoContent, setTodoContent] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -13,7 +13,7 @@ const AddTodo = ({ onAdd }: Props) => {
   };
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onAdd(todoContent);
+    dispatch(addTodo(todoContent));
     setTodoContent("");
     inputRef.current?.focus();
   };
