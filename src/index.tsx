@@ -3,12 +3,16 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./screens/Root";
 import ErrorPage from "./screens/ErrorPage";
 import Recipes from "./screens/Recipes";
 import ShoppingList from "./screens/ShoppingList";
 import Form from "./components/Form";
+import store from "./store";
+import { Provider } from "react-redux";
+import Recipe from "./screens/Recipes/Recipe";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -31,6 +35,10 @@ const router = createBrowserRouter([
             path: "form",
             element: <Form />,
           },
+          {
+            path: ":recipeID",
+            element: <Recipe />,
+          },
         ],
       },
       {
@@ -45,7 +53,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );
 
