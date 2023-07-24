@@ -1,7 +1,8 @@
-export const addRecipe = (name: string, description: string, image: string) => {
+export const addOrUpdateRecipe = (id: number, name: string, description: string, image: string) => {
     return {
-        type: "ADD",
+        type: "ADD_OR_UPDATE",
         payload: {
+            id,
             name,
             description,
             image

@@ -3,7 +3,7 @@ import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import styles from "./style.module.css";
 import { useDispatch } from "react-redux";
-import { addRecipe } from "../../store/actions";
+import { addOrUpdateRecipe } from "../../store/actions";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const SignupSchema = Yup.object().shape({
@@ -16,15 +16,16 @@ const MyForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { state } = useLocation();
-  let name = "";
-  let image = "";
-  let description = "";
+  let name: string = "";
+  let image: string = "";
+  let description: string = "";
+  let id: number = -1;
   if (state) {
+    id = state.id;
     name = state.name;
     image = state.image;
     description = state.description;
   }
-
   const handleCancel = () => {
     navigate("/recipes");
   };
@@ -39,7 +40,7 @@ const MyForm = () => {
         validationSchema={SignupSchema}
         onSubmit={(values) => {
           const { name, description, image } = values;
-          dispatch(addRecipe(name, description, image));
+          dispatch(addOrUpdateRecipe(id, name, description, image));
           navigate("/recipes");
         }}
       >
