@@ -17,7 +17,9 @@ export const recipesReducer = (state = initialState, action: any) => {
             const newRecipe = {id,name,description,image}
             state.recipes.push(newRecipe)
             return {...state}
-    
+        case "DELETE":
+           state.recipes = state.recipes.filter(item => item.id !== action.payload.id)
+            return {...state}
         default:
           return state
     }

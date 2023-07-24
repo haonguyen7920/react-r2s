@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import styles from "./style.module.css";
 import { useDispatch } from "react-redux";
 import { addRecipe } from "../../store/actions";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const SignupSchema = Yup.object().shape({
   name: Yup.string().required("Required"),
@@ -15,6 +15,16 @@ const SignupSchema = Yup.object().shape({
 const MyForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { state } = useLocation();
+  let name = "";
+  let image = "";
+  let description = "";
+  if (state) {
+    name = state.name;
+    image = state.image;
+    description = state.description;
+  }
+
   const handleCancel = () => {
     navigate("/recipes");
   };
@@ -22,9 +32,9 @@ const MyForm = () => {
     <div>
       <Formik
         initialValues={{
-          name: "",
-          image: "",
-          description: "",
+          name,
+          image,
+          description,
         }}
         validationSchema={SignupSchema}
         onSubmit={(values) => {
@@ -35,7 +45,6 @@ const MyForm = () => {
       >
         {({ errors, touched, values }) => (
           <Form className={styles.container}>
-            {/* <Field com rows="4" value={""}></Field> */}
             <div>
               <button type="submit" className="btn btn-success">
                 Save

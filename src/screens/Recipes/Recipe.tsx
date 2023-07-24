@@ -1,6 +1,7 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteRecipe } from "../../store/actions";
 
 interface Recipe {
   id: number;
@@ -9,17 +10,25 @@ interface Recipe {
   image: string;
 }
 const MyRecipe = () => {
+  const navigate = useNavigate();
   const { recipeID } = useParams();
   const { recipes } = useSelector((state: any) => state.recipesReducer);
+  const dispatch = useDispatch();
   const detail: Recipe = recipes.find(
     (recipe: Recipe) => recipe.id.toString() === recipeID
   );
-  console.log(detail);
-
+  const { id, image, name, description } = detail;
+  const handleDelete = () => {
+    dispatch(deleteRecipe(detail.id));
+    navigate("/recipes");
+  };
+  const handleEdit = () => {
+    navigate("/recipes/form", { state: { id, image, name, description } });
+  };
   return (
     <div>
-      <img src={detail.image} alt="" height={200} />
-      <p className="fw-bold">{detail.name}</p>
+      <img src={image} alt="" height={200} />
+      <p className="fw-bold">{name}</p>
       <div className="dropdown">
         <button
           className="btn btn-info dropdown-toggle"
@@ -35,12 +44,12 @@ const MyRecipe = () => {
           <Link className="dropdown-item" to="/shopping-list">
             To Shopping List
           </Link>
-          <a className="dropdown-item" href="/#">
+          <button className="dropdown-item" onClick={handleEdit}>
             Edit Recipe
-          </a>
-          <a className="dropdown-item" href="/#">
+          </button>
+          <button className="dropdown-item" onClick={handleDelete}>
             Delete Recipe
-          </a>
+          </button>
         </div>
       </div>
     </div>
