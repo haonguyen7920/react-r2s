@@ -60,13 +60,11 @@ const MyForm = () => {
             <label htmlFor="">Image URL</label>
             <Field name="image" className="form-control" />
             {errors.image && touched.image && <small>{errors.image}</small>}
-            {values.image && (
-              <img
-                src={values.image}
-                alt="Preview"
-                style={{ marginTop: "5px" }}
-              />
-            )}
+            <img
+              src={values?.image}
+              alt="Preview"
+              style={{ marginTop: "5px" }}
+            />
             <label htmlFor="">Description</label>
             <Field
               name="description"
